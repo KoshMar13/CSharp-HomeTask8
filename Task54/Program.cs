@@ -41,77 +41,45 @@ void PrintMatrix(int[,] matrix)
     }
 }
 
-// int[,] MatrixRowsSortReverse(int[,] matrix)
+// int[] ArrayBubbleSort(int[] array)
 // {
-//     for (int i = 0; i < matrix.GetLength(0); i++)
+//     for (int i = 0; i + 1 < array.Length; i++)
 //     {
-//         int rowMax = matrix[i, 0];
-//         int temp = matrix[i, 0];
-//         for (int j = 0; j < matrix.GetLength(1); j++)
+//         for (int j = 0; j + 1 < (array.Length - i); j++)
 //         {
-//             if (matrix[i, j] > rowMax)
+//             if (array[j + 1] > array[j])
 //             {
-//                 temp = matrix[i, j];
-//                 matrix[i, j] = rowMax;
-//                 rowMax = temp;
+//                 int temp = array[j + 1];
+//                 array[j + 1] = array[j];
+//                 array[j] = temp;
 //             }
 //         }
 //     }
-//     return matrix;
+//     return array;
 // }
 
-// int[,] initMatrix = MatrixRnd(4, 4, 0, 100);
-// PrintMatrix(initMatrix);
-// Console.WriteLine();
-// int[,] sortedMatrix = MatrixRowsSortReverse(initMatrix);
-// PrintMatrix(sortedMatrix);
-
-int[] BubbleSort(int[] array)
+int[,] MatrixRowsSortReverse(int[,] matrix)
 {
-    int rowMax = array[0];
-    for (int i = 0; i < array.Length; i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < array.Length; j++)
+        for (int j = 0; j + 1 < matrix.GetLength(1); j++)
         {
-            if (array[i] > rowMax)
+            for (int l = 0; l + 1 < (matrix.GetLength(1) - j); l++)
             {
-                int temp = array[i];
-                array[i] = rowMax;
-                array[i - 1] = temp;
+                if (matrix[i, l + 1] > matrix[i, l])
+                {
+                    int temp = matrix[i, l + 1];
+                    matrix[i, l + 1] = matrix[i, l];
+                    matrix[i, l] = temp;
+                }
             }
         }
     }
-    return array;
+    return matrix;
 }
 
-void PrintArray(int[] array)
-{
-    int len = array.Length;
-    for (int i = 0; i < len; i++)
-    {
-        if (i == 0)
-            Console.Write("[");
-        if (i < len - 1)
-            Console.Write(array[i] + "; ");
-        else
-            Console.Write(array[i] + "]");
-    }
-    Console.WriteLine();
-}
-
-int[] NewArrayRnd(int size, int min, int max)
-{
-    int[] array = new int[size];
-    var rnd = new Random();
-    for (int i = 0; i < size; i++)
-    {
-        array[i] = rnd.Next(min, max + 1);
-    }
-    return array;
-}
-
-int[] arr = NewArrayRnd(5, 0, 100);
-PrintArray(arr);
+int[,] initMatrix = MatrixRnd(3, 5, 0, 100);
+PrintMatrix(initMatrix);
 Console.WriteLine();
-int[] sortedArr = BubbleSort(arr);
-PrintArray(sortedArr);
+int[,] sortedMatrix = MatrixRowsSortReverse(initMatrix);
+PrintMatrix(sortedMatrix);
