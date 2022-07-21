@@ -35,33 +35,44 @@ void PrintMatrix(int[,] matrix)
                 Console.Write($"{matrix[i, j], 3}|");
         }
         Console.WriteLine();
-        Console.WriteLine();
     }
+    Console.WriteLine();
 }
 
 int[,] MatrixMultiply(int[,] matrix1, int[,] matrix2)
 {
     int rows = matrix1.GetLength(0);
-    int colums = matrix2.GetLength(1);
+    int columns = matrix2.GetLength(1);
     int[,] resultMatrix = new int[rows, columns];
-    for (int i = 0; i < matrix.GetLength(0); i++)
+    for (int i = 0; i < resultMatrix.GetLength(0); i++)
     {
-        for (int j = 0; j < matrix.GetLength(1); j++)
+        for (int j = 0; j < resultMatrix.GetLength(1); j++)
         {
-            matrix[i, j] = rnd.Next(min, max + 1);
+            for (int k = 0; k < rows; k++)
+            {
+                for (int l = 0; l < columns; l++)
+                {
+                    int item = 0;
+                    int sum = 0;
+                    sum = matrix1[k, l] * matrix2[l, k];
+                    item += sum;
+                    resultMatrix[i, j] = item;
+                }
+            }
         }
     }
     return resultMatrix;
 }
 
-int[,] initMatrix1 = MatrixRnd(4, 4, 0, 100);
+int[,] initMatrix1 = MatrixRnd(4, 2, 0, 10);
 PrintMatrix(initMatrix1);
-int[,] initMatrix2 = MatrixRnd(4, 4, 0, 100);
+int[,] initMatrix2 = MatrixRnd(2, 3, 0, 10);
 PrintMatrix(initMatrix2);
 
-if (initMatrix1.GetLength(1) != initMatrix2.GetLength(0)) 
+if (initMatrix1.GetLength(1) != initMatrix2.GetLength(0))
 {
-    Console.WriteLine("Quantity of columns in Matrix1 doesn't match quantity of rows in matrix2. Inserted matrixes can't be multiplyed")
+    Console.WriteLine("Quantity of columns in Matrix1 doesn't match quantity of rows in matrix2.");
+    Console.WriteLine("Inserted matrixes can't be multiplyed.");
 }
 else
 {
