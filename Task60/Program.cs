@@ -18,8 +18,7 @@ int[] UniqArray(int row)
         int item = RandomValue();
         if (Array.IndexOf(array, item) != -1)
         {
-            item = RandomValue();
-            array[i] = item;
+            array[i] = RandomValue();
         }
         else
         {
@@ -48,6 +47,7 @@ void PrintArray(int[] array)
         else
             Console.Write(array[i] + "]");
     }
+    Console.WriteLine();
 }
 
 void Print3DArr(int[,,] array3d)
@@ -65,40 +65,20 @@ void Print3DArr(int[,,] array3d)
     }
 }
 
-// int[,,] Array3d(int[] array, int rows, int columns, int depths)
-// {
-//     int[,,] array3d = new int[rows, columns, depths];
-//     for (int i = 0; i < array3d.GetLength(0); i++)
-//     {
-//         for (int j = 0; j < array3d.GetLength(1); j++)
-//         {
-//             for (int k = 0; k < array3d.GetLength(2); k++)
-//             {
-//                 for (int l = 0; l < array.Length; l++)
-//                 {
-//                     array3d[i, j, k] = array[l];
-//                 }
-//             }
-//         }
-//     }
-//     return array3d;
-// }
-
 int[,,] Array3d(int rows, int columns, int depths)
 {
     int[,,] array3d = new int[rows, columns, depths];
     int[] array = UniqArray(rows * columns * depths);
-
-    for (int i = 0; i < array.Length; i++)
+    PrintArray(array);
+    int count = 0;
+    for (int j = 0; j < array3d.GetLength(0); j++)
     {
-        for (int j = 0; j < array3d.GetLength(0); j++)
+        for (int k = 0; k < array3d.GetLength(1); k++)
         {
-            for (int k = 0; k < array3d.GetLength(1); k++)
+            for (int l = 0; l < array3d.GetLength(2); l++)
             {
-                for (int l = 0; l < array3d.GetLength(2); l++)
-                {
-                    array3d[j, k, l] = array[i];
-                }
+                array3d[j, k, l] = array[count];
+                count++;
             }
         }
     }
@@ -111,8 +91,5 @@ Console.Write("Insert columns: ");
 int column = Convert.ToInt32(Console.ReadLine());
 Console.Write("Insert depth: ");
 int depth = Convert.ToInt32(Console.ReadLine());
-int[] arr = UniqArray(row * column * depth);
-PrintArray(arr);
-Console.WriteLine();
 int[,,] arr3d = Array3d(row, column, depth);
 Print3DArr(arr3d);
