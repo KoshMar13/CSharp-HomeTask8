@@ -48,17 +48,12 @@ int[,] MatrixMultiply(int[,] matrix1, int[,] matrix2)
     {
         for (int j = 0; j < resultMatrix.GetLength(1); j++)
         {
-            for (int k = 0; k < rows; k++)
+            int sum = 0;
+            for (int k = 0; k < matrix1.GetLength(1); k++)
             {
-                for (int l = 0; l < columns; l++)
-                {
-                    int item = 0;
-                    int sum = 0;
-                    sum = matrix1[k, l] * matrix2[l, k];
-                    item += sum;
-                    resultMatrix[i, j] = item;
-                }
+                sum += matrix1[i, k] * matrix2[k, j];
             }
+            resultMatrix[i, j] = sum;
         }
     }
     return resultMatrix;
