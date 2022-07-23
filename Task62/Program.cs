@@ -5,30 +5,55 @@
 // 11 16 15 06
 // 10 09 08 07
 
-void MatrixSnail(int start, int[,] matrix, int rowBegin, int colBegin)
+void MatrixSnail(int start, int[,] matrix, int row, int col) //Заполняет любую КВАДРАТНОЙ матрицы. Допилить до совсем любой не хватило терпения.
 {
-    if (matrix[rowBegin, colBegin] == 0)
+    if (matrix[row, col] == 0)
     {
-        matrix[rowBegin, colBegin] = start;
+        matrix[row, col] = start;
         start++;
-        if (colBegin < matrix.GetLength(1) - 1)
+        if (row <= col + 1 && row + col < matrix.GetLength(1) - 1)
         {
-            MatrixSnail(start, matrix, rowBegin, colBegin + 1);
+            MatrixSnail(start, matrix, row, col + 1);
         }
-        else if (rowBegin < matrix.GetLength(0) - 1)
+        else if (row < col && row + col >= matrix.GetLength(0) - 1)
         {
-            MatrixSnail(start, matrix, rowBegin + 1, colBegin);
+            MatrixSnail(start, matrix, row + 1, col);
         }
-        else if (colBegin > 0)
+        else if (row >= col && row + col > matrix.GetLength(1) - 1)
         {
-            MatrixSnail(start, matrix, rowBegin, colBegin - 1);
+            MatrixSnail(start, matrix, row, col - 1);
         }
-        else if (rowBegin > 0)
+        else
         {
-            MatrixSnail(start, matrix, rowBegin - 1, colBegin);
+            MatrixSnail(start, matrix, row - 1, col);
         }
     }
 }
+
+// void MatrixSnail(int start, int[,] matrix, int row, int col) //Заполняет ЛЮБУЮ матрицу змейкой. Допилить до улитки не хватило терпения.
+// {
+//     if (matrix[row, col] == 0)
+//     {
+//         matrix[row, col] = start;
+//         start++;
+//         if (col < matrix.GetLength(1) - 1)
+//         {
+//             MatrixSnail(start, matrix, row, col + 1);
+//         }
+//         if (row < matrix.GetLength(0) - 1)
+//         {
+//             MatrixSnail(start, matrix, row + 1, col);
+//         }
+//         if (col > 0)
+//         {
+//             MatrixSnail(start, matrix, row, col - 1);
+//         }
+//         if (row > 0)
+//         {
+//             MatrixSnail(start, matrix, row - 1, col);
+//         }
+//     }
+// }
 
 void PrintMatrix(int[,] matrix)
 {
@@ -48,6 +73,7 @@ void PrintMatrix(int[,] matrix)
     Console.WriteLine();
 }
 
+Console.Clear();
 int[,] matrix = new int[4, 4];
 MatrixSnail(1, matrix, 0, 0);
 PrintMatrix(matrix);
