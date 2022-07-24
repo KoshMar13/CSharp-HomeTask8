@@ -36,28 +36,57 @@ void PrintMatrix(int[,] matrix)
         }
         Console.WriteLine();
     }
+    Console.WriteLine();
 }
 
-int MatrixMinRow(int[,] matrix)
+int ArrayMin(int[] array)
 {
-    int minRow = 0;
-    int minimalItem = matrix[0, 0];
-    for (int i = 0; i < matrix.GetLength(0); i++)
+    int minItem = array[0];
+    int minItemIndex = 0;
+    for (int i = 0; i < array.Length; i++)
     {
-        for (int j = 0; j < matrix.GetLength(1); j++)
+        if (array[i] < minItem)
         {
-            if (matrix[i, j] < minimalItem)
-            {
-                minimalItem = matrix[i, j];
-                minRow = i;
-            }
+            minItem = array[i];
+            minItemIndex = i;
         }
     }
+    return minItemIndex;
+}
 
-    return minRow;
+void PrintArray(int[] array)
+{
+    int len = array.Length;
+    for (int i = 0; i < len; i++)
+    {
+        if (i == 0)
+            Console.Write("[");
+        if (i < len - 1)
+            Console.Write(array[i] + ", ");
+        else
+            Console.Write(array[i] + "]");
+    }
+    Console.WriteLine();
+}
+
+int[] MatrixSumRow(int[,] matrix)
+{
+    int[] sumArr = new int[matrix.GetLength(0)];
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        int sumRow = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            sumRow += matrix[i, j];
+        }
+        sumArr[i] = sumRow;
+    }
+    return sumArr;
 }
 
 int[,] initMatrix = MatrixRnd(4, 4, 0, 100);
 PrintMatrix(initMatrix);
-int minLine = MatrixMinRow(initMatrix);
-Console.WriteLine($"Minimal row number is {minLine}");
+int[] sumArray = MatrixSumRow(initMatrix);
+PrintArray(sumArray);
+int minimal = ArrayMin(sumArray) + 1;
+Console.WriteLine($"Row with minimal sum is number {minimal}");
